@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Conference;
 use App\Repository\CommentRepository;
 use App\Repository\ConferenceRepository;
+use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,9 +24,10 @@ final class ConferenceController extends AbstractController
         ]);
     }
 
-    #[Route('/conference/{id}', name: 'conference')]
+    #[Route('/conference/{slug}', name: 'conference')]
     public function show(
         Request $request,
+        #[MapEntity(mapping: ['slug' => 'slug'])]
         Conference        $conference,
         CommentRepository $commentRepository
     ): Response
